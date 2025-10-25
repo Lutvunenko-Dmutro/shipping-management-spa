@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // useRef вже не потрібен
+import React, { useState, useEffect } from 'react'; 
 import './App.css'; 
 
 import ContainerList from './components/ContainerList';
@@ -16,31 +16,28 @@ function App() {
   
   // --- ЗАВДАННЯ 3.1 (jQuery): Реалізація паралакс-ефекту ---
   useEffect(() => {
-    // Цей ефект спрацює, коли 'activeTab' зміниться
-    if (activeTab === 'dashboard' && window.$) { // Перевіряємо, чи jQuery завантажено і чи ми на потрібній вкладці
+
+    if (activeTab === 'dashboard' && window.$) { 
       const $window = window.$(window); 
       const $parallaxElement = window.$('.parallax-container'); 
       
       if ($parallaxElement.length) { 
         
-        const handleScroll = () => { // Виносимо обробник в окрему функцію
+        const handleScroll = () => { 
           const scrolled = $window.scrollTop(); 
-          // Змінюємо позицію фону. Позитивне значення (scrolled * 0.4)
-          // змусить фон рухатися ВНИЗ, але повільніше за скрол. Це виглядає краще.
+
           $parallaxElement.css('background-position', 'center ' + (scrolled * 0.4) + 'px');
         };
 
         // Додаємо обробник
         $window.on('scroll.parallax', handleScroll);
         
-        // Повертаємо функцію "очищення".
-        // Вона спрацює, коли компонент зникне (напр., при переході на іншу вкладку).
         return () => {
-          $window.off('scroll.parallax'); // Видаляємо *саме цей* обробник
+          $window.off('scroll.parallax'); 
         };
       }
     }
-  }, [activeTab]); // Запускаємо ефект, коли змінюється вкладка
+  }, [activeTab]); 
 
 
   const addContainer = (newContainerData) => {
@@ -126,10 +123,10 @@ function App() {
           // --- ЗАВДАННЯ 3.1: Додаємо паралакс-контейнер ---
           <section id="dashboard-section" style={{ gridColumn: '1 / -1' }}> 
             
-            {/* Це буде наш паралакс-елемент */}
+            {/* Це типу паралакс-елемент */}
             <div 
               className="parallax-container" 
-              style={{ backgroundImage: `url('/containers.jpg')` }} // Шлях до вашої локальної фотографії
+              style={{ backgroundImage: `url('/containers.jpg')` }} 
             >
               <div className="parallax-content">
                 <h2>Активні Контейнери & Моніторинг</h2>
