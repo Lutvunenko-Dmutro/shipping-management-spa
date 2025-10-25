@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# Система управління перевезеннями (React SPA Version)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Модульна робота
 
-## Available Scripts
+**Автор:** Литвиненко Дмитро
 
-In the project directory, you can run:
+### Призначення проєкту
 
-### `npm start`
+Цей проєкт є практичною реалізацією **Розділу 3** модульної роботи. Він демонструє побудову сучасного **Односторінкового застосунку (SPA)** з використанням фреймворку **React**.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+На відміну від "ванільного" JavaScript-проєкту (`shipping-management-js`), ця версія використовує **декларативний** підхід, **компонентну архітектуру** та **управління станом** для створення більш потужного, масштабованого та легкого у підтримці додатку.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+-----
 
-### `npm test`
+## 🚀 Реалізований функціонал (Завдання 3.2 та 3.3)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Цей SPA-додаток реалізує повний **CRUD-функціонал** (Create, Read, Update, Delete) для управління контейнерами.
 
-### `npm run build`
+### 1\. Декларативний UI та Управління Станом (State Management)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Це ключова перевага React, яка вирішує всі проблеми імперативного підходу.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  * **Єдине Джерело Правди:** Замість того, щоб "читати" дані з HTML (DOM), ми зберігаємо список контейнерів у стані React (`const [containers, setContainers] = useState(...)`).
+  * **Реактивність:** Нам більше не потрібно вручну додавати (`insertRow()`) або видаляти (`row.remove()`) елементи з таблиці.
+      * **Додавання:** Ми просто додаємо новий об'єкт в масив `containers` і викликаємо `setContainers`. React *сам* бачить зміну і автоматично "перемальовує" таблицю.
+      * **Видалення:** Ми викликаємо `setContainers`, передаючи новий масив, відфільтрований без видаленого елемента. React *сам* оновлює UI.
+      * **Оновлення:** Ми оновлюємо статус об'єкта в масиві, і React *сам* змінює текст статусу в таблиці.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 2\. Компонентна Архітектура
 
-### `npm run eject`
+Весь інтерфейс розбитий на логічні, незалежні та перевикористовувані компоненти:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  * **`App.js`:** Головний "розумний" компонент, який "володіє" станом (списком контейнерів) і передає логіку (функції `onAdd`, `onDelete`) дочірнім компонентам.
+  * **`ContainerList.js`:** "Дурний" (презентаційний) компонент. Він нічого не знає про логіку, а лише отримує дані (`props`) і відображає таблицю.
+  * **`AddContainerForm.js`:** Компонент, що контролює власну форму. Він використовує `useState` для керування полями вводу та валідацією.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 3\. Клієнтський Роутинг (SPA)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Реалізовано симуляцію навігації без перезавантаження сторінки:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  * Окремий стан `activeTab` відстежує, яка вкладка зараз активна.
+  * Залежно від цього стану, `App.js` умовно рендерить (`{activeTab === 'dashboard' && ...}`) або `ContainerList`, або `AddContainerForm`, або секцію `Reports`.
 
-## Learn More
+### 4\. Динамічні Звіти
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Вкладка "Звіти" не є статичною. Вона динамічно розраховує статистику (загальна кількість, в дорозі, доставлено) на основі *поточного* стану `containers`. Будь-яка зміна в таблиці (додавання/видалення) автоматично відображається у звітах.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 5\. Інтеграція jQuery (Завдання 3.1)
 
-### Code Splitting
+Для демонстрації сумісності технологій було інтегровано **jQuery** для створення візуального ефекту.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  * **Parallax Effect:** На вкладці "Панель управління" реалізовано ефект паралаксу для фонового зображення.
+  * **Інтеграція з React:** Ефект реалізовано "безпечно" через хук `useEffect`, який додає та видаляє обробник події `window.onscroll` від jQuery. Це гарантує, що jQuery не "конфліктує" з життєвим циклом React.
 
-### Analyzing the Bundle Size
+### 6\. Стилізація та UI
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  * **Темна тема:** Реалізовано стильний чорно-синій інтерфейс (Dark Mode).
+  * **Адаптивність:** Весь інтерфейс повністю адаптивний для мобільних пристроїв.
 
-### Making a Progressive Web App
+-----
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## ⚙️ Технологічний стек
 
-### Advanced Configuration
+  * **React** (v18+)
+      * React Hooks (`useState`, `useEffect`)
+  * **HTML5 / JSX**
+  * **CSS3**
+      * CSS Variables
+      * Grid / Flexbox
+  * **jQuery** (для паралакс-ефекту)
+  * **Git**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+-----
 
-### Deployment
+## 💿 Як запустити
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Цей проєкт був створений за допомогою `create-react-app`.
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1.  Склонуйте репозиторій:
+    ```bash
+    git clone https://github.com/Lutvunenko-Dmutro/shipping-management-spa.git
+    ```
+2.  Перейдіть у папку проєкту:
+    ```bash
+    cd shipping-management-spa
+    ```
+3.  Встановіть залежності:
+    ```bash
+    npm install
+    ```
+4.  Запустіть сервер для розробки:
+    ```bash
+    npm start
+    ```
+    Додаток автоматично відкриється у вашому браузері за адресою `http://localhost:3000`.
