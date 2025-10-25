@@ -1,38 +1,287 @@
+/* Шлях: container-app/src/App.css */
+
+/* --- Нова темна палітра (чорно-синя) --- */
+:root {
+  --primary-color: #3182ce;  /* Яскравий синій для акцентів */
+  --secondary-color: #2b6cb0; /* Темніший синій для hover-ефектів */
+  --bg-color: #1a202c;        /* Дуже темний синьо-сірий фон */
+  --card-bg: #2d3748;         /* Темно-сірий фон для карток/форм */
+  --text-color: #e2e8f0;      /* Світло-сірий для основного тексту */
+  --text-color-secondary: #a0aec0; /* Тьмяніший сірий для підписів */
+  --border-color: #4a5568;    /* Сірий для рамок */
+  
+  --success-color: #38a169;
+  --error-color: #e53e3e;
+  
+  /* Статуси (робимо їх більш контрастними на темному фоні) */
+  --transit-bg: #f6e05e;
+  --transit-text: #744210;
+  --delivered-bg: #68d391;
+  --delivered-text: #22543d;
+  --pending-bg: #f56565;
+  --pending-text: #742a2a;
+}
+
+/* Прибираємо базові стилі з index.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color); /* Застосовуємо темний фон до body */
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "nav"
+    "main"
+    "footer";
   min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.header {
+  grid-area: header;
+  background-color: var(--card-bg); /* Робимо шапку темною */
+  color: var(--text-color);
+  text-align: center;
+  padding: 1.2rem;
+  border-bottom: 2px solid var(--border-color); /* Додаємо рамку */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.footer {
+  grid-area: footer;
+  background-color: var(--card-bg); /* Темний підвал */
+  color: var(--text-color-secondary);
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+.navigation {
+  grid-area: nav;
+  background-color: var(--card-bg); /* Темна навігація */
+  border-bottom: 2px solid var(--border-color);
+}
+.navigation ul {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0.5rem;
+  list-style: none;
+}
+.navigation a {
+  display: block;
+  text-decoration: none;
+  color: var(--primary-color);
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+.navigation a.active,
+.navigation a:hover {
+  background-color: var(--primary-color);
+  color: #ffffff; /* Робимо текст на активній кнопці білим */
+}
+
+.container {
+  grid-area: main;
+  width: 95%;
+  max-width: 1400px;
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: 1fr; /* Ми змінили це в App.js, тепер завжди 1 колонка */
+  gap: 2rem;
+}
+
+/* Секції */
+.dashboard-section,
+.form-section {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+}
+
+/* Таблиця */
+.table-container {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+th {
+  background-color: #3c4a5f; /* Темно-синій фон для заголовків */
+  color: var(--text-color);
+}
+
+/* Статуси */
+.status {
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.status-transit {
+  background-color: var(--transit-bg);
+  color: var(--transit-text);
+}
+.status-delivered {
+  background-color: var(--delivered-bg);
+  color: var(--delivered-text);
+}
+.status-pending {
+  background-color: var(--pending-bg);
+  color: var(--pending-text);
+}
+
+/* Форма */
+.form-section {
+  position: sticky;
+  top: 2rem;
+}
+.form-group {
+  margin-bottom: 1.25rem;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-color-secondary);
+}
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #1a202c; /* Фон інпуту */
+  color: var(--text-color); /* Колір тексту в інпуті */
+}
+.form-group input[type="text"]:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 5px rgba(49, 130, 206, 0.5);
+}
+
+/* Кнопки */
+.btn {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  margin-right: 5px;
+  transition: background-color 0.3s;
+}
+.btn-submit {
+  width: 100%;
+  padding: 0.85rem;
+  background-color: var(--success-color);
+  font-size: 1rem;
+}
+.btn-submit:hover {
+  background-color: #2f855a;
+}
+.btn-delete {
+  background-color: var(--error-color);
+}
+.btn-delete:hover {
+  background-color: #c53030;
+}
+.btn-update {
+  background-color: var(--transit-bg);
+  color: var(--transit-text);
+}
+.btn-update:hover {
+  background-color: #ecc94b;
+}
+
+.error-message {
+  color: var(--error-color);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  height: 1em;
+}
+
+/* Паралакс */
+.parallax-container {
+  min-height: 70vh; 
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: white; /* Білий текст на фото */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* Сильніша тінь для темної теми */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+  border-radius: 8px; /* Додамо заокруглення */
+}
+.parallax-content {
+  text-align: center;
+  z-index: 2;
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.5); /* Темніший оверлей для тексту */
+  border-radius: 10px;
+}
+.parallax-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.parallax-content p {
+  font-size: 1.2rem;
+  line-height: 1.5;
 }
 
-.App-link {
-  color: #61dafb;
+/* Адаптивність (залишається без змін) */
+@media (max-width: 992px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+  .form-section {
+    position: static;
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 600px) {
+  .navigation ul {
+    flex-direction: column;
+    align-items: stretch;
   }
-  to {
-    transform: rotate(360deg);
+  .navigation a {
+    text-align: center;
+  }
+  .container {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  .dashboard-section,
+  .form-section {
+    padding: 1rem;
+    border-radius: 0;
+  }
+  .parallax-content h2 {
+    font-size: 1.8rem;
   }
 }
+
