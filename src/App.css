@@ -1,19 +1,15 @@
-/* Шлях: container-app/src/App.css */
-
-/* --- Нова темна палітра (чорно-синя) --- */
 :root {
-  --primary-color: #3182ce;  /* Яскравий синій для акцентів */
-  --secondary-color: #2b6cb0; /* Темніший синій для hover-ефектів */
-  --bg-color: #1a202c;        /* Дуже темний синьо-сірий фон */
-  --card-bg: #2d3748;         /* Темно-сірий фон для карток/форм */
-  --text-color: #e2e8f0;      /* Світло-сірий для основного тексту */
-  --text-color-secondary: #a0aec0; /* Тьмяніший сірий для підписів */
-  --border-color: #4a5568;    /* Сірий для рамок */
+  --primary-color: #3182ce; 
+  --secondary-color: #2b6cb0; 
+  --bg-color: #1a202c;        
+  --card-bg: #2d3748;        
+  --text-color: #e2e8f0;      
+  --text-color-secondary: #a0aec0; 
+  --border-color: #4a5568;   
   
   --success-color: #38a169;
   --error-color: #e53e3e;
   
-  /* Статуси (робимо їх більш контрастними на темному фоні) */
   --transit-bg: #f6e05e;
   --transit-text: #744210;
   --delivered-bg: #68d391;
@@ -22,11 +18,10 @@
   --pending-text: #742a2a;
 }
 
-/* Прибираємо базові стилі з index.css */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: var(--bg-color); /* Застосовуємо темний фон до body */
+    background-color: var(--bg-color); 
     color: var(--text-color);
     min-height: 100vh;
 }
@@ -46,16 +41,16 @@ body {
 
 .header {
   grid-area: header;
-  background-color: var(--card-bg); /* Робимо шапку темною */
+  background-color: var(--card-bg); 
   color: var(--text-color);
   text-align: center;
   padding: 1.2rem;
-  border-bottom: 2px solid var(--border-color); /* Додаємо рамку */
+  border-bottom: 2px solid var(--border-color); 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 .footer {
   grid-area: footer;
-  background-color: var(--card-bg); /* Темний підвал */
+  background-color: var(--card-bg); 
   color: var(--text-color-secondary);
   text-align: center;
   padding: 1rem;
@@ -64,7 +59,7 @@ body {
 }
 .navigation {
   grid-area: nav;
-  background-color: var(--card-bg); /* Темна навігація */
+  background-color: var(--card-bg); 
   border-bottom: 2px solid var(--border-color);
 }
 .navigation ul {
@@ -87,7 +82,7 @@ body {
 .navigation a.active,
 .navigation a:hover {
   background-color: var(--primary-color);
-  color: #ffffff; /* Робимо текст на активній кнопці білим */
+  color: #ffffff; 
 }
 
 .container {
@@ -96,7 +91,7 @@ body {
   max-width: 1400px;
   margin: 2rem auto;
   display: grid;
-  grid-template-columns: 1fr; /* Ми змінили це в App.js, тепер завжди 1 колонка */
+  grid-template-columns: 1fr; 
   gap: 2rem;
 }
 
@@ -125,7 +120,7 @@ td {
   border-bottom: 1px solid var(--border-color);
 }
 th {
-  background-color: #3c4a5f; /* Темно-синій фон для заголовків */
+  background-color: #3c4a5f; 
   color: var(--text-color);
 }
 
@@ -170,8 +165,8 @@ th {
   border: 1px solid var(--border-color);
   border-radius: 4px;
   box-sizing: border-box;
-  background-color: #1a202c; /* Фон інпуту */
-  color: var(--text-color); /* Колір тексту в інпуті */
+  background-color: #1a202c; 
+  color: var(--text-color); 
 }
 .form-group input[type="text"]:focus {
   border-color: var(--primary-color);
@@ -231,17 +226,17 @@ th {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white; /* Білий текст на фото */
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* Сильніша тінь для темної теми */
+  color: white; 
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   margin-bottom: 2rem;
-  border-radius: 8px; /* Додамо заокруглення */
+  border-radius: 8px; 
 }
 .parallax-content {
   text-align: center;
   z-index: 2;
   padding: 2rem;
-  background-color: rgba(0, 0, 0, 0.5); /* Темніший оверлей для тексту */
+  background-color: rgba(0, 0, 0, 0.5); 
   border-radius: 10px;
 }
 .parallax-content h2 {
@@ -253,7 +248,6 @@ th {
   line-height: 1.5;
 }
 
-/* Адаптивність (залишається без змін) */
 @media (max-width: 992px) {
   .container {
     grid-template-columns: 1fr;
